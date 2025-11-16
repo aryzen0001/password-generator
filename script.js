@@ -1,10 +1,10 @@
-// Step 1: Select elements
+// Select elements
 const passwordInput = document.getElementById('password');
 const generateButton = document.getElementById('generate');
 const copyButton = document.getElementById('copy');
 const lengthSelect = document.getElementById('length');
 
-// Step 2: Character sets
+// Character sets
 const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
 const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const numbers = '0123456789';
@@ -12,14 +12,14 @@ const symbols = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
 
 const allCharacters = lowerCase + upperCase + numbers + symbols;
 
-// Step 3: Secure random number
+// Secure random number
 function secureRandomNumber(max) {
   const array = new Uint32Array(1);
   window.crypto.getRandomValues(array);
   return array[0] % max;
 }
 
-// Step 4: Generate password
+// Generate password
 function generatePassword(length = 12) {
   let password = '';
 
@@ -40,7 +40,7 @@ function generatePassword(length = 12) {
   return password;
 }
 
-// Step 5: Generate button click
+// Generate button click
 generateButton.addEventListener('click', () => {
   const length = parseInt(lengthSelect.value);
   const newPassword = generatePassword(length);

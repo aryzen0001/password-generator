@@ -7,7 +7,8 @@
     <title>Password Generator</title>
     <meta name="description"
         content="Generate strong, secure passwords instantly. Choose length, copy to clipboard, crypto-secure random generator. Free online tool.">
-    <!-- Google tag (gtag.js) -->
+    <link rel="stylesheet" href="style.css">
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KEKBFK93D7"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -18,137 +19,534 @@
     </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2898707813033581"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
 
     <style>
-        /* Animated gradient background */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(-45deg, #1e1b18, #3c2f2f, #4a1f0c, #2b1a12);
-            background-size: 400% 400%;
-            color: #f5e0c3;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            padding-top: 60px;
-            text-align: center
+        /* --- Global Reset & Typography --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --color-primary: #007BFF;
+            /* Vibrant Electric Blue */
+            --color-secondary: #28A745;
+            /* Trustworthy Security Green */
+            --color-background: #E6F0FF;
+            /* Very Light Pale Blue/Sky */
+            --color-text: #223A5E;
+            /* Dark Navy Blue */
+            --color-text-light: #4D648D;
+            --color-white: #ffffff;
+            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* --- Main Structure & Layout --- */
+        .main-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* --- Header & Main Generator Section --- */
         h1 {
             font-size: 2.5em;
-            margin-bottom: 15px;
-            color: #ffb347;
-            /* warm accent */
-            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
+            color: var(--color-primary);
+            text-align: center;
+            margin-top: 40px;
         }
 
-        p {
+        header p {
+            text-align: center;
             font-size: 1.1em;
-            margin-bottom: 20px;
-            max-width: 350px;
-            line-height: 1.5;
+            margin-bottom: 40px;
+            color: var(--color-text-light);
         }
 
-        select,
-        input,
-        button {
-            padding: 12px;
-            margin: 10px 0;
-            font-size: 16px;
+        .generator-main {
+            background-color: var(--color-white);
+            padding: 30px;
             border-radius: 12px;
-            border: none;
-            outline: none;
-            width: 80%;
-            max-width: 350px;
+            box-shadow: var(--shadow-heavy);
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        select,
-        input {
-            background: #3c2f2f;
-            color: #f5e0c3;
+        /* Input, Select, and Buttons */
+        .generator-container {
+            display: flex;
+            gap: 15px;
         }
 
-        input {
-            font-weight: bold;
-            letter-spacing: 1px;
+        #password {
+            flex-grow: 1;
+            padding: 15px;
+            border: 2px solid #D6E0F0;
+            /* Lighter border for contrast */
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-family: 'Courier New', Courier, monospace;
+            /* Monospace for password */
+            color: var(--color-text);
+            background-color: #f9f9f9;
+        }
+
+        #length {
+            padding: 15px 10px;
+            border: 2px solid #D6E0F0;
+            border-radius: 8px;
+            font-size: 1em;
+            background-color: var(--color-white);
+            cursor: pointer;
+            color: var(--color-text);
         }
 
         button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
             cursor: pointer;
-            background: #ff8c42;
-            color: #1e1b18;
-            font-weight: bold;
-            transition: 0.3s;
+            transition: background-color 0.3s, transform 0.1s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        button:hover {
-            background: #ffb347;
+        #generate {
+            background-color: var(--color-primary);
+            color: var(--color-white);
         }
 
-        /*
-    .ad-spot {
-      width: 90%;
-      max-width: 350px;
-      min-height: 90px;
-      margin: 20px 0;
-      background: #3c2f2f;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #f5e0c3;
-      font-size: 14px;
-    }
-    */
+        #generate:hover {
+            background-color: #0056b3;
+            /* Darker primary */
+        }
 
-        /* Security explanation */
-        .security-info {
+        #copy {
+            background-color: var(--color-secondary);
+            color: var(--color-white);
+        }
+
+        #copy:hover {
+            background-color: #1e7e34;
+            /* Darker secondary */
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        /* --- Content Sections (Security, FAQ) --- */
+        section {
+            padding: 40px;
+            margin-bottom: 30px;
+            background-color: var(--color-white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+        }
+
+        section h2 {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--color-secondary);
+            padding-bottom: 10px;
+        }
+
+        section h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--color-text);
+            margin: 25px 0 10px 0;
+        }
+
+        section p {
+            margin-bottom: 20px;
+            color: var(--color-text-light);
+        }
+
+        section b {
+            color: var(--color-primary);
+        }
+
+        /* --- List Styling --- */
+        ul {
+            list-style-type: none;
+            /* Remove default bullets */
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+            color: var(--color-text-light);
+        }
+
+        ul li::before {
+            content: '🔑';
+            /* Use a key emoji as a custom bullet */
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-size: 0.9em;
+        }
+
+        /* --- Table Styling --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
             font-size: 0.95em;
-            max-width: 350px;
-            margin: 15px 0;
-            color: #ffd799;
-            line-height: 1.4;
+            box-shadow: var(--shadow-light);
+            border-radius: 8px;
+            overflow: hidden;
+            /* Ensures borders/shadows apply nicely */
         }
 
-        @media (max-width: 500px) {
+        table th,
+        table td {
+            padding: 15px;
+            text-align: left;
+            border: none;
+        }
 
-            select,
-            input,
-            button,
-            .ad-spot {
-                width: 95%;
+        table thead tr {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            font-weight: 600;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f1f6ff;
+            /* Lightest blue tone */
+        }
+
+        table tbody tr:hover {
+            background-color: #e0e9f6;
+            /* Slightly darker on hover */
+            cursor: default;
+        }
+
+        /* Highlight important cells */
+        table tbody tr td:first-child {
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        table tbody tr td:last-child {
+            font-weight: 700;
+            color: #0056b3;
+            /* A slightly darker primary for impact */
+        }
+
+
+        /* --- Responsive Adjustments (Mobile First) --- */
+
+        /* Adjusting layout for smaller screens */
+        @media (max-width: 650px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+                margin-top: 20px;
+            }
+
+            .generator-main {
+                padding: 20px;
+            }
+
+            .generator-container {
+                flex-direction: column;
+            }
+
+            #length {
+                width: 100%;
+                /* Make select full width on small screens */
+            }
+
+            /* Stack buttons for better tap target size */
+            .generator-container:last-child {
+                flex-direction: column;
+            }
+
+            button {
+                padding: 12px;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            section h2 {
+                font-size: 1.5em;
+            }
+
+            section h3 {
+                font-size: 1.2em;
+            }
+
+            table thead {
+                display: none;
+                /* Hide header row on small screens */
+            }
+
+            table,
+            table tbody,
+            table tr,
+            table td {
+                display: block;
+                /* Make table elements display as blocks */
+                width: 100%;
+            }
+
+            table tr {
+                margin-bottom: 15px;
+                border-bottom: 2px solid #ddd;
+            }
+
+            table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            table td::before {
+                content: attr(data-label);
+                /* Use data-label for the header */
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 15px;
+                font-weight: 600;
+                text-align: left;
+                color: var(--color-text);
             }
         }
     </style>
+
 </head>
 
 <body>
+    <div class="main-content">
 
-    <h1>Password Generator</h1>
+        <header>
+            <h1>Password Generator</h1>
+            <p>Choose a length and click Generate to create a strong password.</p>
+        </header>
 
-    <p>Choose a length and click Generate to create a strong password.</p>
+        <div class="generator-main">
+            <div class="generator-container">
+                <input type="text" id="password" readonly placeholder="Your new password">
+                <select id="length">
+                    <option value="8">8</option>
+                    <option value="12" selected>12</option>
+                    <option value="16">16</option>
+                    <option value="20">20</option>
+                    <option value="24">24</option>
+                </select>
+            </div>
 
-    <select id="length">
-        <option value="8">8</option>
-        <option value="12" selected>12</option>
-        <option value="16">16</option>
-        <option value="20">20</option>
-        <option value="24">24</option>
-    </select>
+            <div class="generator-container">
+                <button id="generate">Generate</button>
+                <button id="copy">Copy to Clipboard</button>
+            </div>
+        </div>
 
 
-    <input type="text" id="password" readonly>
-    <button id="generate">Generate</button>
-    <button id="copy">Copy to Clipboard</button>
+        <section>
+            <h2>Our Unbreakable Security Guarantee & Algorithm Deep Dive</h2>
+            <h3>The Core Security Guarantee: Client-Side Generation</h3>
+            <p>Your security is our highest priority. Unlike many public generators, this tool is designed for maximum
+                safety and privacy.
+                <br>
+                <br>
+                <b>CRUCIAL: Password generation is processed entirely on your local device.</b> The string never leaves
+                your
+                browser, is never stored on our server, and is never transmitted over the internet. You can even
+                disconnect
+                your Wi-Fi and the generator will still function perfectly. We never see your generated password.
+            </p>
 
-    <div class="security-info">
-        This password generator uses cryptographically secure random numbers and includes uppercase, lowercase, numbers,
-        and symbols to ensure strong, unpredictable passwords for all your accounts.
+            <h3>The Algorithm: Understanding the CSPRNG Standard</h3>
+            <p>We utilize the Cryptographically Secure Pseudorandom Number Generator (CSPRNG) standard, which is the
+                same trusted algorithm used in major operating systems and modern web browsers to protect financial and
+                personal data.
+                <br>
+                <br>
+                What makes CSPRNG superior? It is engineered to create unpredictable outputs. It does this by using a
+                high-entropy 'seed'—an unrepeatable starting point derived from chaotic system inputs like your CPU
+                temperature, mouse movements, and network timings. This guarantees that every password generated is
+                truly random and virtually impossible to guess or replicate
+            </p>
+
+            <h3>An Assurance on Entropy and Quality</h3>
+            <p>A strong password is defined by its entropy (its measure of randomness and complexity). Because our
+                algorithm
+                is fed by high-quality entropy, you can be assured that any password generated by this tool is of the
+                highest security standard, providing a foundational defense against modern brute-force and dictionary
+                attacks.
+            </p>
+        </section>
+
+        <section>
+            <h2>The Anatomy of Strength: Why Length is Key</h2>
+            <h3>Introduction to Entropy: The True Measure of Strength</h3>
+            <p>A password's strength is not just about complexity; it's about entropy, which is a measure of the
+                unpredictability of the characters. Every time you add a character, you aren't just adding to the
+                length—you
+                are exponentially increasing the number of possible combinations. This dramatically raises the
+                computational
+                cost and time required for an attacker to crack it. High entropy is the reason a truly random
+                16-character
+                string is safer than a slightly modified dictionary word.</p>
+
+            <h3>The Character Set Rule</h3>
+            <p>Maximizing your password's entropy requires using a diverse character set. Our generator uses all four
+                key
+                types to ensure maximum security:
+            <ul>
+                <li> Uppercase Letters (A–Z): Doubles the potential characters available to the attacker.
+                </li>
+                <li> Lowercase Letters (a–z): The foundation of any secure password.
+                </li>
+                <li> Numbers (0–9): Adds 10 more possibilities and breaks common dictionary attacks.
+                </li>
+                <li> Symbols (!@#$%^, etc.): Often mandatory for security policies and provides the greatest complexity
+                    boost.</li>
+            </ul>
+
+            <h3>Time-to-Crack Table</h3>
+            <p>The rise of modern Graphics Processing Units (GPUs) means password cracking is faster than ever. The
+                difference between a short password and a long one is no longer minutes—it's millennia. This table
+                illustrates the estimated time required to crack passwords of various lengths using a common, high-speed
+                cracking rig:</p>
+
+            <table border="1" cellpadding="8" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Password Length</th>
+                        <th>Character Set</th>
+                        <th>Estimated Time to Crack</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Password Length">8 Characters</td>
+                        <td data-label="Character Set">Mixed Case + Numbers</td>
+                        <td data-label="Estimated Time to Crack">&lt; 1 Hour</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Password Length">10 Characters</td>
+                        <td data-label="Character Set">Mixed Case + Numbers + Symbols</td>
+                        <td data-label="Estimated Time to Crack">~1 Week</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Password Length">12 Characters</td>
+                        <td data-label="Character Set">Mixed Case + Numbers + Symbols</td>
+                        <td data-label="Estimated Time to Crack">~300 Years</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Password Length">16 Characters</td>
+                        <td data-label="Character Set">Mixed Case + Numbers + Symbols</td>
+                        <td data-label="Estimated Time to Crack">~3 Billion Years</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Password Length">20 Characters</td>
+                        <td data-label="Character Set">Mixed Case + Numbers + Symbols</td>
+                        <td data-label="Estimated Time to Crack">&gt; 1 Quintillion Years</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Essential Security FAQs</h2>
+
+            <h3>Q1: Should I use a Password Manager to store my complex passwords?</h3>
+            <p><b>A: Yes, absolutely. A secure password manager is essential.</b>
+                <br>
+                <br>
+                When you generate highly complex passwords, they are impossible to memorize. Trying to write them down
+                or
+                store them in a document creates new security risks. We strongly recommend using a reputable, encrypted
+                password manager (like 1Password, NordPass, or Bitwarden) to safely store and manage the passwords
+                generated
+                here. A good password manager protects your secure strings behind a single, unguessable master password.
+            </p>
+
+
+            <h3>Q2: Why is Two-Factor Authentication (2FA) important?</h3>
+            <p><b>A: 2FA is your indispensable second line of defense.</b>
+                <br>
+                <br>
+                In a security system, there are three factors of authentication: something you know (like a password),
+                something
+                you have (like your phone), and something you are (like a fingerprint). 2FA requires both 'something you
+                know'
+                (your password) and 'something you have' (a one-time code from an app or text).
+
+                Even if a hacker steals your password, they cannot access your account without your physical phone.
+                Using an
+                Authenticator App (like Google or Microsoft Authenticator) is generally safer than relying on SMS text
+                messages,
+                which can be vulnerable to SIM swapping attacks.
+            </p>
+
+
+            <h3>Q3: What is the risk of reusing the same password across multiple accounts?</h3>
+            <p><b>A: Password reuse is the single biggest cybersecurity risk today—it enables Credential Stuffing.</b>
+                <br>
+                <br>
+                When one company experiences a data breach, hackers obtain a list of emails and passwords. They then use
+                automated tools to "stuff" (try) those credentials on thousands of other popular websites (like banking,
+                social media, or shopping sites).
+
+                Solution: Every single account you own must have a unique, highly random password. Our generator makes
+                this
+                easy and safe.
+            </p>
+
+
+            <h3>Q4: How can I be sure the password is not stored by you?</h3>
+            <p><b>A: We guarantee it cannot be stored, because the tool runs client-side.</b>
+                <br>
+                <br>
+                Our generator is written in a language (JavaScript) that executes entirely within your web browser. When
+                you
+                click 'Generate,' the process happens instantly on your own computer, and the resulting string never
+                touches
+                our servers. Your connection to us is only used to load this web page, not to process your data.
+            </p>
+
+        </section>
+
     </div>
-
     <script src="script.js"></script>
 </body>
 
