@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <meta name="description"
+        content="Generate strong, secure passwords instantly. Choose length, copy to clipboard, crypto-secure random generator. Free online tool.">
+    <style>
+        /* Animated gradient background */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #1e1b18, #3c2f2f, #4a1f0c, #2b1a12);
+            background-size: 400% 400%;
+            color: #f5e0c3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;;
+            margin: 0;
+            padding-top: 60px;
+            text-align: center
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffb347;
+            /* warm accent */
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            max-width: 350px;
+            line-height: 1.5;
+        }
+
+        select,
+        input,
+        button {
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            width: 80%;
+            max-width: 350px;
+        }
+
+        select,
+        input {
+            background: #3c2f2f;
+            color: #f5e0c3;
+        }
+
+        input {
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        button {
+            cursor: pointer;
+            background: #ff8c42;
+            color: #1e1b18;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ffb347;
+        }
+
+        /*
+    .ad-spot {
+      width: 90%;
+      max-width: 350px;
+      min-height: 90px;
+      margin: 20px 0;
+      background: #3c2f2f;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f5e0c3;
+      font-size: 14px;
+    }
+    */
+
+        /* Security explanation */
+        .security-info {
+            font-size: 0.95em;
+            max-width: 350px;
+            margin: 15px 0;
+            color: #ffd799;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 500px) {
+
+            select,
+            input,
+            button,
+            .ad-spot {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Password Generator</h1>
+
+    <p>Choose a length and click Generate to create a strong password.</p>
+
+    <select id="length">
+        <option value="8">8</option>
+        <option value="12" selected>12</option>
+        <option value="16">16</option>
+        <option value="20">20</option>
+        <option value="24">24</option>
+    </select>
+
+
+    <input type="text" id="password" readonly>
+    <button id="generate">Generate</button>
+    <button id="copy">Copy to Clipboard</button>
+
+    <div class="security-info">
+        This password generator uses cryptographically secure random numbers and includes uppercase, lowercase, numbers,
+        and symbols to ensure strong, unpredictable passwords for all your accounts.
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
